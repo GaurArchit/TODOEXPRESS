@@ -7,6 +7,15 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
+app.use((req, res, next) => {
+  console.log(`Request received at ${new Date()}`);
+  next(); // Call the next middleware function
+});
+
+app.use(function myMiddle(req, res, next) {
+  console.log("This is my middle ware");
+  next();
+});
 let newItems = [];
 app.get("/", (req, res) => {
   res.status(200);
